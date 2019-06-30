@@ -148,18 +148,18 @@ class EfficientNet(nn.Module):
             )
 
             # The first block needs to take care of stride and filter size increase.
-            self._blocks.append(MBConvBlock(block_args, self._global_params, norm_func))
+            self._blocks.append(MBConvBlock(block_args, self._global_params, self._norm_func))
             if block_args.num_repeat > 1:
                 block_args = block_args._replace(input_filters=block_args.output_filters, stride=1)
             for _ in range(block_args.num_repeat - 1):
-                self._blocks.append(MBConvBlock(block_args, self._global_params, norm_func))
+                self._blocks.append(MBConvBlock(block_args, self._global_params, self._norm_func))
 
         # Head
         in_channels = block_args.output_filters  # output of final block
         out_channels = round_filters(1280, self._global_params)
         self._conv_head = Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
         # self._bn1 = nn.BatchNorm2d(num_features=out_channels, momentum=bn_mom, eps=bn_eps)
-        self._bn1 = norm_func(out_channels)
+        self._bn1 = self._norm_func(out_channels)
 
         # Final linear layer
         self._dropout = self._global_params.dropout_rate
