@@ -26,6 +26,12 @@ class Compose(object):
         return format_string
 
 
+
+class Noop():
+    def __call__(self, img, target):
+        return img, target
+
+
 class RandomCrop():
     def __init__(self, w, h, s, min_area, min_visibility):
         self.w = w
