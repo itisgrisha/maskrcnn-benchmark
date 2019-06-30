@@ -1,6 +1,7 @@
 from collections import namedtuple
 from maskrcnn_benchmark.utils.registry import Registry
 from maskrcnn_benchmark.modeling.make_layers import group_norm
+from maskrcnn_benchmark.layers import FrozenBatchNorm2d
 from torch import nn
 import torch
 from torch import nn
