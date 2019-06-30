@@ -4,6 +4,8 @@ import random
 import torch
 import torchvision
 from torchvision.transforms import functional as F
+import numpy as np
+from maskrcnn_benchmark.structures.bounding_box import BoxList
 
 
 class Compose(object):
@@ -22,6 +24,54 @@ class Compose(object):
             format_string += "    {0}".format(t)
         format_string += "\n)"
         return format_string
+
+
+class RandomCrop():
+    def __init__(self, w, h, s, min_area, min_visibility):
+        self.w = w
+        self.h = h
+        self.s = s
+        self.min_area = min_area
+        self.min_visibility = min_visibility
+
+    def __call__(self, image, target=None):
+        bboxes = target.convert('xyxy').bbox
+        box = bboxes[np.random.randint(bboxes.shape[0])]
+        left, top, right, bottom = box
+
+        im_w, im_h = image.size
+
+        if (right - left) > self.w:
+            x_from = max(0, left-self.s)
+            x_to = x_from + 1
+        else:
+            x_from = max(0, right - self.w)
+            x_to = min(im_w - self.w, left) + 1
+        x = np.random.randint(int(x_from), int(x_to))
+
+        if (bottom - top) > self.h:
+            y_from = max(0, top-self.s)
+            y_to = y_from + 1
+        else:
+            y_from = max(0, bottom - self.h)
+            y_to = min(im_h - self.h, top)  + 1
+        y = np.random.randint(int(y_from), int(y_to))
+
+        crop = [x, y, x+self.w, y+self.h]
+
+        new_image = image.crop(crop)
+        cropped_bboxes = target.crop(crop)
+        labels = cropped_bboxes.get_field('labels')
+        areas = target.area()
+        cropped_areas = cropped_bboxes.area()
+
+        idx = (cropped_areas >= self.min_area) & ((cropped_areas / areas) >= self.min_visibility)
+
+        new_boxes = cropped_bboxes.bbox[idx]
+        new_labels = cropped_bboxes.get_field('labels')[idx]
+        target = BoxList(new_boxes, (self.w, self.h), mode=target.mode)
+        target.add_field('labels', torch.LongTensor(new_labels))
+        return new_image, target
 
 
 class Resize(object):

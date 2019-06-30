@@ -36,7 +36,8 @@ def build_transforms(cfg, is_train=True):
     transform = T.Compose(
         [
             color_jitter,
-            T.Resize(min_size, max_size),
+            T.RandomCrop(w=max_size, h=max_size, s=5, min_area=100, min_visibility=0.5),
+            # T.Resize(min_size, max_size),
             T.RandomHorizontalFlip(flip_horizontal_prob),
             T.RandomVerticalFlip(flip_vertical_prob),
             T.ToTensor(),
