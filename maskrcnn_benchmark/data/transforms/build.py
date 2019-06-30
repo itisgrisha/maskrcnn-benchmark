@@ -22,7 +22,7 @@ def build_transforms(cfg, is_train=True):
         contrast = 0.0
         saturation = 0.0
         hue = 0.0
-        crop = Noop
+        crop = T.Noop
 
     to_bgr255 = cfg.INPUT.TO_BGR255
     normalize_transform = T.Normalize(
