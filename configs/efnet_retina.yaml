@@ -31,8 +31,8 @@ MODEL:
     USE_C5: False
     NUM_CONVS: 4
 DATASETS:
-  TRAIN: ("icevision_train")
-  # TEST: ("coco_2014_minival",)
+  TRAIN: ("coco_icevision_train, coco_RTSD_train")
+  TEST: ("coco_icevision_val",)
 DATALOADER:
   SIZE_DIVISIBILITY: 32
 SOLVER:
