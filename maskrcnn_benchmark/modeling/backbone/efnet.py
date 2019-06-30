@@ -181,7 +181,7 @@ class EfficientNet(nn.Module):
             x = block(x, drop_connect_rate=drop_connect_rate)
             if idx in self._features_idx:
                 outputs.append(x)
-        return x
+        return outputs
 
     # def forward(self, inputs):
     #     """ Calls extract_features to extract features, applies final linear layer, and returns logits. """
