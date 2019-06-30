@@ -115,7 +115,7 @@ class EfficientNet(nn.Module):
         # block_args, global_params = get_model_params(cfg.BACKBONE.CONV_BODY, override_params=False)
 
 
-        if cfg.MODEL.BACKBONE.CONV_BODY[-2:] == 'EFNET-B0-FPN-RETINA':
+        if cfg.MODEL.BACKBONE.CONV_BODY == 'EFNET-B0-FPN-RETINA':
             self._block_args, self._global_params = get_model_params('efficientnet-b0', override_params=False)
             self._features_idx = set((4, 10, 15))
             self._fpn_in_channels = [40, 112, 320]
