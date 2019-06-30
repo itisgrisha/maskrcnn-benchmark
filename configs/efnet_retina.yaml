@@ -30,6 +30,8 @@ MODEL:
     NUM_CLASSES: 129
     USE_C5: False
     NUM_CONVS: 4
+  GROUP_NORM:
+    NUM_GROUPS: 8
 DATASETS:
   TRAIN: ("coco_icevision_train", "coco_RTSD_train")
   TEST: ("coco_icevision_val",)
