@@ -15,6 +15,31 @@ from ..utils.timer import Timer, get_time_str
 from .bbox_aug import im_detect_bbox_aug
 
 
+
+# def run_hires_pred(img, model):
+#     ytl = cfg.TEST.HIRES_FROM
+#     dh = cfg.INPUT.MAX_SIZE_TEST
+#     dw = cfg.INPUT.MAX_SIZE_TEST
+#     step = (img.size[0] - cfg.INPUT.MAX_SIZE_TEST) / (img.size[0] // cfg.INPUT.MAX_SIZE_TEST)
+#     step = int(step)
+#     hires_crops = [img.crop((ytl, xtl, ytl+dh, xtl+dw))
+#                    for xtl in range(0, (img.size[0] - cfg.INPUT.MAX_SIZE_TEST)+1, step)]
+#
+#
+#
+#
+# def run_on_crops(img, model):
+#
+#
+#     lowres_size = int(.5 + img.size[0] / cfg.TEST.SCALE_FACTOR), int(.5 + cfg.TEST.LOWRES_TO / cfg.TEST.SCALE_FACTOR)
+#     lowres_img = img.crop((0, 0, img.size[0], cfg.TEST.LOWRES_TO)).resize((img.size[0] /))
+#
+#
+#     hires_crops = [img.crop((ytl, xtl, ytl+dh, xtl+dw))
+#                    for xtl in range(0, (img.size[0] - cfg.INPUT.MAX_SIZE_TEST)+1, step)]
+
+
+
 def compute_on_dataset(model, data_loader, device, timer=None):
     model.eval()
     results_dict = {}
@@ -27,6 +52,8 @@ def compute_on_dataset(model, data_loader, device, timer=None):
                 timer.tic()
             if cfg.TEST.BBOX_AUG.ENABLED:
                 output = im_detect_bbox_aug(model, images, device)
+            elif cfg.TEST.RUN_HIRES:
+                pass
             else:
                 output = model(images.to(device))
             if timer:
@@ -34,6 +61,7 @@ def compute_on_dataset(model, data_loader, device, timer=None):
                     torch.cuda.synchronize()
                 timer.toc()
             output = [o.to(cpu_device) for o in output]
+            print(output)
         results_dict.update(
             {img_id: result for img_id, result in zip(image_ids, output)}
         )

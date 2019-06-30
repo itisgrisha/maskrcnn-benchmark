@@ -455,6 +455,11 @@ _C.TEST.BBOX_AUG.MAX_SIZE = 4000
 # Horizontal flip at each scale
 _C.TEST.BBOX_AUG.SCALE_H_FLIP = False
 
+_C.TEST.RUN_HIRES = False
+_C.TEST.HIRES_FROM = 650
+_C.TEST.LOWRES_TO = 1216
+_C.TEST.SCALE_FACTOR = 2
+
 
 # ---------------------------------------------------------------------------- #
 # Misc options
