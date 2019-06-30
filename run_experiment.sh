@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exp={1:-ice}
+exp={$1:-ice}
 
 git pull
 
