@@ -1,1 +1,1 @@
-nvidia-docker run --shm-size 8G -d --net=host --name ice -v /media/grisha/hdd/icevision:/data maskrcnn
+nvidia-docker run --rm --shm-size 8G -d --name ice -v /media/grisha/hdd/icevision:/data maskrcnn

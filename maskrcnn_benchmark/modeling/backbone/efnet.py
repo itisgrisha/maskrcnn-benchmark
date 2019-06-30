@@ -1,5 +1,4 @@
 from collections import namedtuple
-from efficientnet_pytorch import EfficientNet
 from maskrcnn_benchmark.utils.registry import Registry
 from maskrcnn_benchmark.modeling.make_layers import group_norm
 from torch import nn
