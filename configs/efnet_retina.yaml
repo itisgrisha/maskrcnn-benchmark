@@ -31,7 +31,7 @@ MODEL:
     USE_C5: False
     NUM_CONVS: 4
 DATASETS:
-  TRAIN: ("coco_icevision_train, coco_RTSD_train")
+  TRAIN: ("coco_icevision_train", "coco_RTSD_train")
   TEST: ("coco_icevision_val",)
 DATALOADER:
   SIZE_DIVISIBILITY: 32
