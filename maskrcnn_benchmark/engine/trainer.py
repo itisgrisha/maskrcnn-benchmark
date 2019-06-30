@@ -11,6 +11,8 @@ from maskrcnn_benchmark.utils.metric_logger import MetricLogger
 
 from apex import amp
 
+from test_net import eval_net
+
 def reduce_loss_dict(loss_dict):
     """
     Reduce the loss dictionary from all processes so that process with rank
@@ -55,7 +57,7 @@ def do_train(
     start_training_time = time.time()
     end = time.time()
     for iteration, (images, targets, _) in enumerate(data_loader, start_iter):
-        
+
         if any(len(target) < 1 for target in targets):
             logger.error(f"Iteration={iteration + 1} || Image Ids used for training {_} || targets Length={[len(target) for target in targets]}" )
             continue
@@ -111,6 +113,7 @@ def do_train(
             )
         if iteration % checkpoint_period == 0:
             checkpointer.save("model_{:07d}".format(iteration), **arguments)
+            eval_net(model)
         if iteration == max_iter:
             checkpointer.save("model_final", **arguments)
 
