@@ -133,7 +133,7 @@ class EfficientNet(nn.Module):
             self._norm_func = group_norm
         else:
             self._norm_func = FrozenBatchNorm2d
-        self._bn0 = self.FrozenBatchNorm2d(out_channels)
+        self._bn0 = FrozenBatchNorm2d(out_channels)
         # self._bn0 = nn.BatchNorm2d(num_features=out_channels, momentum=bn_mom, eps=bn_eps)
 
         # Build blocks
