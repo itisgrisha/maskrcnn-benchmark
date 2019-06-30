@@ -7,6 +7,26 @@ from maskrcnn_benchmark.modeling import registry
 from maskrcnn_benchmark.modeling.make_layers import conv_with_kaiming_uniform
 from . import fpn as fpn_module
 from . import resnet
+from . import efnet
+
+
+@registry.BACKBONES.register("EFNET-B0-FPN-RETINA")
+def build_efnet_backbone(cfg):
+    body = efnet.EfficientNet(cfg)
+
+    in_channels = body._fpn_in_channels
+    out_channels = body._fpn_out_channels
+    fpn = fpn_module.FPN(
+        in_channels_list=in_channels,
+        out_channels=out_channels,
+        conv_block=conv_with_kaiming_uniform(
+            cfg.MODEL.FPN.USE_GN, cfg.MODEL.FPN.USE_RELU
+        ),
+        top_blocks=None,
+    )
+    model = nn.Sequential(OrderedDict([("body", body), ("fpn", fpn)]))
+    model.out_channels = out_channels
+    return model
 
 
 @registry.BACKBONES.register("R-50-C4")

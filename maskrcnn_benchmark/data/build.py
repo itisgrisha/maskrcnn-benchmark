@@ -42,7 +42,14 @@ def build_dataset(dataset_list, transforms, dataset_catalog, is_train=True):
             args["use_difficult"] = not is_train
         args["transforms"] = transforms
         # make dataset from factory
-        dataset = factory(**args)
+        if data["factory"] == "IceVision":
+            dataset = factory(
+                labels_path=args['ann_file'],
+                images_path=args['img_dir'],
+                transforms=args['transforms']
+            )
+        else:
+            dataset = factory(**args)
         datasets.append(dataset)
 
     # for testing, return a list of datasets

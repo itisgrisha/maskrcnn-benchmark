@@ -7,6 +7,10 @@ import os
 class DatasetCatalog(object):
     DATA_DIR = "datasets"
     DATASETS = {
+        "icevision_train": {
+            "img_dir": "/media/grisha/hdd/icevision",
+            "ann_file": "/media/grisha/hdd/icevision/annotations/training"
+        },
         "coco_2017_train": {
             "img_dir": "coco/train2017",
             "ann_file": "coco/annotations/instances_train2017.json"
@@ -108,7 +112,17 @@ class DatasetCatalog(object):
 
     @staticmethod
     def get(name):
-        if "coco" in name:
+        if "icevision_train" in name:
+            print("GET ICEVISION")
+            args = dict(
+                root=DatasetCatalog.DATASETS[name]['img_dir'],
+                ann_file=DatasetCatalog.DATASETS[name]['ann_file']
+            )
+            return dict(
+                args=args,
+                factory='IceVision',
+            )
+        elif "coco" in name:
             data_dir = DatasetCatalog.DATA_DIR
             attrs = DatasetCatalog.DATASETS[name]
             args = dict(
