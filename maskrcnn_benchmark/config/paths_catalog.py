@@ -121,7 +121,7 @@ class DatasetCatalog(object):
     @staticmethod
     def get(name):
         # if "icevision_train" in name:
-        if False
+        if False:
             print("GET ICEVISION")
             args = dict(
                 root=DatasetCatalog.DATASETS[name]['img_dir'],
