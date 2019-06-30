@@ -52,3 +52,4 @@ INPUT:
   PIXEL_MEAN: [120.17, 133.96, 143.09]
   PIXEL_STD: [73.27, 75.32 , 71.49]
 DTYPE: "float32"
+OUTPUT_DIR: "./ice_model"
