@@ -54,7 +54,7 @@ class MBConvBlock(nn.Module):
             in_channels=oup, out_channels=oup, groups=oup,  # groups makes it depthwise
             kernel_size=k, stride=s, bias=False)
         # self._bn1 = nn.BatchNorm2d(num_features=oup, momentum=self._bn_mom, eps=self._bn_eps)
-        self._bn = norm_func(oup)
+        self._bn1 = norm_func(oup)
 
         # Squeeze and Excitation layer, if desired
         if self.has_se:
