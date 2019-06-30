@@ -7,9 +7,17 @@ import os
 class DatasetCatalog(object):
     DATA_DIR = "datasets"
     DATASETS = {
-        "icevision_train": {
-            "img_dir": "/media/grisha/hdd/icevision",
-            "ann_file": "/media/grisha/hdd/icevision/annotations/training"
+        "coco_icevision_train": {
+            "img_dir": "/data",
+            "ann_file": "/data/ice/annotations/coco_train_class.json"
+        },
+        "coco_icevision_val": {
+            "img_dir": "/data",
+            "ann_file": "/data/ice/annotations/coco_val_class.json"
+        },
+        "coco_RTSD_train": {
+            "img_dir": "/data",
+            "ann_file": "/data/RTSD/annotations/coco_train_class.json"
         },
         "coco_2017_train": {
             "img_dir": "coco/train2017",
@@ -112,7 +120,8 @@ class DatasetCatalog(object):
 
     @staticmethod
     def get(name):
-        if "icevision_train" in name:
+        # if "icevision_train" in name:
+        if False
             print("GET ICEVISION")
             args = dict(
                 root=DatasetCatalog.DATASETS[name]['img_dir'],
