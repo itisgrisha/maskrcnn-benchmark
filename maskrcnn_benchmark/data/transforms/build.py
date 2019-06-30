@@ -34,7 +34,6 @@ def build_transforms(cfg, is_train=True):
         saturation=saturation,
         hue=hue,
     )
-
     transform = T.Compose(
         [
             color_jitter,
