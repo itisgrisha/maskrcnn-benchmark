@@ -13,6 +13,7 @@ from ..rpn.rpn import build_rpn
 from ..roi_heads.roi_heads import build_roi_heads
 
 
+
 class GeneralizedRCNN(nn.Module):
     """
     Main class for Generalized R-CNN. Currently supports boxes and masks.
@@ -45,9 +46,16 @@ class GeneralizedRCNN(nn.Module):
         """
         if self.training and targets is None:
             raise ValueError("In training mode, targets should be passed")
+        from time import time
         images = to_image_list(images)
+        tik = time()
         features = self.backbone(images.tensors)
+        tok = time()
+        print('elapsed {}ms for backbone'.format(int(1000*(tok-tik))))
+        tik = time()
         proposals, proposal_losses = self.rpn(images, features, targets)
+        tok = time()
+        print('elapsed {}ms for rpn'.format(int(1000*(tok-tik))))
         if self.roi_heads:
             x, result, detector_losses = self.roi_heads(features, proposals, targets)
         else:
