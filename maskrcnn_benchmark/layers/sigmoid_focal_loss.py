@@ -51,7 +51,6 @@ def sigmoid_focal_loss_cpu(logits, targets, gamma, alpha):
     term2 = p ** gamma * torch.log(1 - p)
     return -(t == class_range).float() * term1 * alpha - ((t != class_range) * (t >= 0)).float() * term2 * (1 - alpha)
 
-@amp.float_function
 class SigmoidFocalLoss(nn.Module):
     def __init__(self, gamma, alpha):
         super(SigmoidFocalLoss, self).__init__()
