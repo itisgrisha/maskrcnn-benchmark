@@ -17,7 +17,7 @@ from maskrcnn_benchmark.structures.image_list import to_image_list
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
         cfg.merge_from_file(cfg_path)
-        cfg.merge_from_list(['DTYPE', 'float16'])
+        # cfg.merge_from_list(['DTYPE', 'float16'])
         self._cfg = cfg.clone()
         self._model = build_detection_model(self._cfg)
         self._model.eval()
@@ -35,9 +35,9 @@ class Detector():
     def __call__(self, frame):
         return self.infer(frame)
 
-    def infer(self, frame):
+    def infer(self, frames):
 
-        transformed_frame = self._transform(frame).half()
+        transformed_frame = [self._transform(f) for f in frames]
         image_list = to_image_list(transformed_frame, self._cfg.DATALOADER.SIZE_DIVISIBILITY)
         image_list = image_list.to(self._device)
 
@@ -46,19 +46,11 @@ class Detector():
             predictions = self._model(image_list)
         predictions = [o.to('cpu') for o in predictions]
 
-        # always single image is passed at a time
-        prediction = predictions[0]
-
-        # reshape prediction (a BoxList) into the original image size
-        # height, width = frame.shape[:-1]
-        # prediction = prediction.resize((width, height))
-
-        # keypoints = prediction.get_field('keypoints').keypoints.numpy()[..., :2]
-        bboxes = prediction.bbox.numpy()
-        labels = prediction.get_field('labels').numpy()
-        scores = prediction.get_field('scores').numpy()
-
-        return list(zip(bboxes, labels, scores))
+        # bboxes = prediction.bbox.numpy()
+        # labels = prediction.get_field('labels').numpy()
+        # scores = prediction.get_field('scores').numpy()
+        #
+        # return list(zip(bboxes, labels, scores))
 
 
     def _build_transform(self):
@@ -122,3 +114,10 @@ for c in crops:
     tok = time()
 
     print("elapsed {:d}ms for one crop".format(int(1000*(tok-tik)), len(crops)))
+
+tik = time()
+
+model(crops[:10])
+
+tok = time()
+print("elapsed {:d}ms for 10 crops".format(int(1000*(tok-tik))))
