@@ -76,7 +76,7 @@ class RetinaNetPostProcessor(RPNPostProcessor):
         for i, j in zip(w, q):
             print(i[2]-i[0], i[3]-i[1])
             print(j[2]-j[0], j[3]-j[1])
-            print(j[2]-j[1])
+            print(j[2]-i[2])
             print((i[2]-i[0])/(i[3]-i[1]))
             print((i[2]-i[0])*(i[3]-i[1]))
             print('-----')
