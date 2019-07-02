@@ -41,9 +41,9 @@ class Detector():
 
     def infer(self, frames):
 
-        print(frames)
+        #print(frames)
         tik = time()
-        transformed_frame = [self._transform(f).half() for f in frames]
+        transformed_frame = [self._transform(f) for f in frames]
         tok = time()
         print("elapsed {:d}ms for preprocessing {} crops".format(int(1000*(tok-tik)), len(frames)))
         image_list = to_image_list(transformed_frame, self._cfg.DATALOADER.SIZE_DIVISIBILITY)
