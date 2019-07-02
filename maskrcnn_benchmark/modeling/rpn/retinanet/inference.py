@@ -68,19 +68,19 @@ class RetinaNetPostProcessor(RPNPostProcessor):
         N, _, H, W = box_cls.shape
         A = box_regression.size(1) // 4
         C = box_cls.size(1) // A
-        #print(anchors)
-        #print(anchors[0].bbox[:9])
-        #q = anchors[0].bbox.to('cpu').detach()
-        #w = q[:9]
-        #q = q[9:]
-        #for i, j in zip(w, q):
-        #    print(i[2]-i[0], i[3]-i[1])
-        #    print(j[2]-j[0], j[3]-j[1])
-        #    print(j[2]-i[2])
-        #    print((i[2]-i[0])/(i[3]-i[1]))
-        #    print((i[2]-i[0])*(i[3]-i[1]))
-        #    print('-----')
-        #print('-'*50)
+        print(anchors)
+        print(anchors[0].bbox[:9])
+        q = anchors[0].bbox.to('cpu').detach()
+        w = q[:9]
+        q = q[9:]
+        for i, j in zip(w, q):
+            print(i[2]-i[0], i[3]-i[1])
+            print(j[2]-j[0], j[3]-j[1])
+            print(j[2]-i[2])
+            print((i[2]-i[0])/(i[3]-i[1]))
+            print((i[2]-i[0])*(i[3]-i[1]))
+            print('-----')
+        print('-'*50)
         # put in the same format as anchors
         box_cls = permute_and_flatten(box_cls, N, A, C, H, W)
         box_cls = box_cls.sigmoid()
