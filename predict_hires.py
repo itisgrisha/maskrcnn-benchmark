@@ -19,7 +19,7 @@ class Detector():
         self.model.eval()
         self._device = 'cuda'
         self.model.to(self._device)
-        self.shape = shape
+        self.shape = input_shape
 
         save_dir = cfg.OUTPUT_DIR
         checkpoint = torch.load(weights_path, map_location=torch.device("cpu"))
