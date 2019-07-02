@@ -14,7 +14,7 @@ from maskrcnn_benchmark.utils.checkpoint import DetectronCheckpointer
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
         self._cfg = cfg.merge_from_file(cfg_path)
-        self.model = build_detection_model(self.cfg)
+        self.model = build_detection_model(self._cfg)
         self.model.eval()
         self._device = 'cuda'
         self.model.to(self._device)
