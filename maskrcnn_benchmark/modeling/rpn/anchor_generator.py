@@ -163,7 +163,7 @@ def make_anchor_generator_retinanet(config):
             octave_scale = octave ** (scale_per_octave / float(scales_per_octave))
             per_layer_anchor_sizes.append(octave_scale * size)
         new_anchor_sizes.append(tuple(per_layer_anchor_sizes))
-
+    print(tuple(new_anchor_sizes), aspect_ratios, anchor_strides)
     anchor_generator = AnchorGenerator(
         tuple(new_anchor_sizes), aspect_ratios, anchor_strides, straddle_thresh
     )
