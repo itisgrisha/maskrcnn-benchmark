@@ -27,6 +27,6 @@ def get_crops(img, x_from, y_from, x_to, y_to, size):
     return crops, shifts
 
 
-path = choice('/data/ice/images/2018-03-07_1336_right/025520.jpg')
+path = '/data/ice/images/2018-03-07_1336_right/025520.jpg'
 img = Image.open(path)
 crops, shifts = get_crops(img, 0, 0, 2448, 1208, 608)
