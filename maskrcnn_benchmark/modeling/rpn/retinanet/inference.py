@@ -70,6 +70,8 @@ class RetinaNetPostProcessor(RPNPostProcessor):
         C = box_cls.size(1) // A
         print(anchors)
         print(anchors[0].bbox[:9])
+        q = anchors[0].bbox.to('cpu').detach()
+        print(q[:, 2] - q[:, 0], q[:, 3] - q[:, 1])
         print(anchors[0].bbox[-9:])
         # put in the same format as anchors
         box_cls = permute_and_flatten(box_cls, N, A, C, H, W)
