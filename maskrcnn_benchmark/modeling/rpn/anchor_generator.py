@@ -154,7 +154,7 @@ def make_anchor_generator_retinanet(config):
     straddle_thresh = config.MODEL.RETINANET.STRADDLE_THRESH
     octave = config.MODEL.RETINANET.OCTAVE
     scales_per_octave = config.MODEL.RETINANET.SCALES_PER_OCTAVE
-
+    print(config)
     assert len(anchor_strides) == len(anchor_sizes), "Only support FPN now"
     new_anchor_sizes = []
     for size in anchor_sizes:
