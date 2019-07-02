@@ -28,6 +28,8 @@ class Detector():
         checkpoint = torch.load(weights_path, map_location=torch.device("cpu"))
         load_state_dict(self._model, checkpoint.pop("model"))
 
+        self._model = self._model.half()
+
         self._transform = self._build_transform()
 
 
@@ -36,7 +38,7 @@ class Detector():
 
     def infer(self, frame):
 
-        transformed_frame = self._transform(frame)
+        transformed_frame = self._transform(frame).half()
         image_list = to_image_list(transformed_frame, self._cfg.DATALOADER.SIZE_DIVISIBILITY)
         image_list = image_list.to(self._device)
 
