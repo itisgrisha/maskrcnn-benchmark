@@ -16,10 +16,10 @@ class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
         cfg.merge_from_file(cfg_path)
         self._cfg = cfg.clone()
-        self.model = build_detection_model(self._cfg)
-        self.model.eval()
+        self._model = build_detection_model(self._cfg)
+        self._model.eval()
         self._device = 'cuda'
-        self.model.to(self._device)
+        self._model.to(self._device)
         self.shape = input_shape
 
         save_dir = cfg.OUTPUT_DIR
