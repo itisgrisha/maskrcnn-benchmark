@@ -119,7 +119,7 @@ for c in crops:
 
 tik = time()
 
-model(crops[:10])
+model(crops)
 
 tok = time()
-print("elapsed {:d}ms for 10 crops".format(int(1000*(tok-tik))))
+print("elapsed {:d}ms for {} crops".format(int(1000*(tok-tik)), len(crops)))
