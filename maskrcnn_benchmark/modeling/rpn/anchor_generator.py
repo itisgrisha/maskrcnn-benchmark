@@ -6,6 +6,7 @@ import torch
 from torch import nn
 
 from maskrcnn_benchmark.structures.bounding_box import BoxList
+from maskrcnn_benchmark.config import cfg
 
 
 class BufferList(nn.Module):
@@ -77,6 +78,8 @@ class AnchorGenerator(nn.Module):
         ):
             grid_height, grid_width = size
             device = base_anchors.device
+            dtype = torch.float16 if cfg.DTYPE=='float16' else torch.float32
+            print("DTYPE", dtype)
             shifts_x = torch.arange(
                 0, grid_width * stride, step=stride, dtype=torch.float32, device=device
             )

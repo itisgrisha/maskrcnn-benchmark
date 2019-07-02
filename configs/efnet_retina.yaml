@@ -56,5 +56,5 @@ TEST:
   HIRES_FROM: 650
   LOWRES_TO: 1216
   SCALE_FACTOR: 2
-DTYPE: "float32"
+DTYPE: "float16"
 OUTPUT_DIR: "./ice_model"
