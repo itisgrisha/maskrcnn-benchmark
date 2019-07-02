@@ -118,7 +118,7 @@ model = Detector('configs/efnet_retina.yaml', '/data/mask_ckpts/rc_608/model_fin
 for c in crops:
     tik = time()
     predictions = model([c])
-
+    print(predictions)
     tok = time()
 
     print("elapsed {:d}ms for one crop".format(int(1000*(tok-tik)), len(crops)))
