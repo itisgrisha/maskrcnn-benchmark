@@ -24,11 +24,7 @@ def boxlist_nms(boxlist, nms_thresh, max_proposals=-1, score_field="scores"):
     boxlist = boxlist.convert("xyxy")
     boxes = boxlist.bbox
     score = boxlist.get_field(score_field)
-    from time import time
-    tik = time()
     keep = _box_nms(boxes, score, nms_thresh)
-    tok = time()
-    print('elapsed {}ms for nms'.format(int(1000*(tok - tik))))
     if max_proposals > 0:
         keep = keep[: max_proposals]
     boxlist = boxlist[keep]

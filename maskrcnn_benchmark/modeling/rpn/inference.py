@@ -137,7 +137,11 @@ class RPNPostProcessor(torch.nn.Module):
         num_levels = len(objectness)
         anchors = list(zip(*anchors))
         for a, o, b in zip(anchors, objectness, box_regression):
+            from time import time
+            tik = time()
             sampled_boxes.append(self.forward_for_single_feature_map(a, o, b))
+            tok = time()
+            print('elapsed {} for forward_for_single'.format(int(1000*(tok-tik))))
 
         boxlists = list(zip(*sampled_boxes))
         boxlists = [cat_boxlist(boxlist) for boxlist in boxlists]
