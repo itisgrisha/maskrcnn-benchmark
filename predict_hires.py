@@ -17,7 +17,7 @@ from maskrcnn_benchmark.structures.image_list import to_image_list
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
         cfg.merge_from_file(cfg_path)
-        # cfg.merge_from_list(['DTYPE', 'float16'])
+        cfg.merge_from_list(['DTYPE', 'float16'])
         self._cfg = cfg.clone()
         self._model = build_detection_model(self._cfg)
         self._model.eval()
@@ -31,6 +31,8 @@ class Detector():
 
         self._transform = self._build_transform()
 
+        self._model.half()
+
 
     def __call__(self, frame):
         return self.infer(frame)
@@ -39,7 +41,7 @@ class Detector():
 
         print(frames)
         tik = time()
-        transformed_frame = [self._transform(f) for f in frames]
+        transformed_frame = [self._transform(f).half() for f in frames]
         tok = time()
         print("elapsed {:d}ms for preprocessing {} crops".format(int(1000*(tok-tik)), len(frames)))
         image_list = to_image_list(transformed_frame, self._cfg.DATALOADER.SIZE_DIVISIBILITY)
