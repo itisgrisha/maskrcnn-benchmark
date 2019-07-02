@@ -112,11 +112,12 @@ crops, shifts = get_crops(img, 0, 0, 2448, 1208, 608)
 
 model = Detector('configs/efnet_retina.yaml', '/data/mask_ckpts/rc_608/model_final.pth')
 
-tik = time()
+
 
 for c in crops:
+    tik = time()
     predictions = model(c)
 
-tok = time()
+    tok = time()
 
-print("elapsed {:d}ms for {:d} crops".format(int(1000*(tok-tik))), len(crops))
+    print("elapsed {:d}ms for one crop".format(int(1000*(tok-tik)), len(crops)))
