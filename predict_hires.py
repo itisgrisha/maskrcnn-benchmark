@@ -27,16 +27,6 @@ def get_crops(img, x_from, y_from, x_to, y_to, size):
     return crops, shifts
 
 
-tables = [x for x in glob("/data/ice/annotations/**/*.tsv", recursive=True)]
-impaths = []
-for tpath in tqdm(tables):
-    t = pd.read_csv(tpath, sep='\t')
-    if t.shape[0] == 0:
-        continue
-    impath = tpath.replace('annotations', 'images').replace('tsv', 'jpg')
-    impaths.append(impath)
-
-path = choice(impath)
-print(path)
+path = choice('/data/ice/images/2018-03-07_1336_right/025520.jpg')
 img = Image.open(path)
 crops, shifts = get_crops(img, 0, 0, 2448, 1208, 608)
