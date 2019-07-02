@@ -33,7 +33,7 @@ class Detector():
 
         self._transform = self._build_transform()
 
-        self._model.half()
+        #self._model.half()
 
 
     def __call__(self, frame):
