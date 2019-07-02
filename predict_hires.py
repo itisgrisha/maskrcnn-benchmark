@@ -4,6 +4,7 @@ from random import choice
 import pandas as pd
 from tqdm import tqdm
 from time import time
+import torch
 
 from maskrcnn_benchmark.config import cfg
 from torchvision import transforms as T
