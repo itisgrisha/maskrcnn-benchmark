@@ -5,7 +5,7 @@ import pandas as pd
 from tqdm import tqdm
 from time import time
 import torch
-
+from apex import amp
 from maskrcnn_benchmark.config import cfg
 from torchvision import transforms as T
 from maskrcnn_benchmark.modeling.detector import build_detection_model
@@ -13,6 +13,8 @@ from maskrcnn_benchmark.utils.checkpoint import DetectronCheckpointer
 from maskrcnn_benchmark.utils.model_serialization import load_state_dict
 from maskrcnn_benchmark.structures.image_list import to_image_list
 
+
+amp.init(enabled=True)
 
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
