@@ -78,8 +78,9 @@ class AnchorGenerator(nn.Module):
         ):
             grid_height, grid_width = size
             device = base_anchors.device
-            dtype = torch.float16 if cfg.DTYPE=='float16' else torch.float32
-            print("DTYPE", dtype)
+            #dtype = torch.float16 if cfg.DTYPE=='float16' else torch.float32
+            #print("DTYPE", dtype)
+            dtype = torch.float32
             shifts_x = torch.arange(
                 0, grid_width * stride, step=stride, dtype=dtype, device=device
             )
