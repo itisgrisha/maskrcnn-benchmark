@@ -17,6 +17,7 @@ from maskrcnn_benchmark.structures.image_list import to_image_list
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
         cfg.merge_from_file(cfg_path)
+        cfg.merge_from_list(['DTYPE', 'float16'])
         self._cfg = cfg.clone()
         self._model = build_detection_model(self._cfg)
         self._model.eval()
@@ -27,8 +28,6 @@ class Detector():
         save_dir = cfg.OUTPUT_DIR
         checkpoint = torch.load(weights_path, map_location=torch.device("cpu"))
         load_state_dict(self._model, checkpoint.pop("model"))
-
-        self._model = self._model.half()
 
         self._transform = self._build_transform()
 
