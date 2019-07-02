@@ -71,8 +71,9 @@ class RetinaNetPostProcessor(RPNPostProcessor):
         print(anchors)
         print(anchors[0].bbox[:9])
         q = anchors[0].bbox.to('cpu').detach()
-        print(q[:, 2] - q[:, 0], q[:, 3] - q[:, 1])
-        print(anchors[0].bbox[-9:])
+        for i in q[:9]:
+            print(i[2]-i[0], i[3]-i[1])
+        print('-'*20)
         # put in the same format as anchors
         box_cls = permute_and_flatten(box_cls, N, A, C, H, W)
         box_cls = box_cls.sigmoid()
