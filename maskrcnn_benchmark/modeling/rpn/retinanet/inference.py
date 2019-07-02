@@ -69,7 +69,8 @@ class RetinaNetPostProcessor(RPNPostProcessor):
         A = box_regression.size(1) // 4
         C = box_cls.size(1) // A
         print(anchors)
-        print(anchors[0].bbox)
+        print(anchors[0].bbox[:9])
+        print(anchors[0].bbox[-9:])
         # put in the same format as anchors
         box_cls = permute_and_flatten(box_cls, N, A, C, H, W)
         box_cls = box_cls.sigmoid()
