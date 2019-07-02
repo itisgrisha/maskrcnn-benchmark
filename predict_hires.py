@@ -106,7 +106,7 @@ path = '/data/ice/images/2018-03-07_1336_right/025520.jpg'
 img = Image.open(path)
 crops, shifts = get_crops(img, 0, 0, 2448, 1208, 608)
 
-model = Detector('configs/retina_ice.yaml', '/data/mask_ckpts/rc_608/model_final.pth')
+model = Detector('configs/efnet_retina.yaml', '/data/mask_ckpts/rc_608/model_final.pth')
 
 tik = time()
 
