@@ -14,7 +14,7 @@ from maskrcnn_benchmark.utils.model_serialization import load_state_dict
 from maskrcnn_benchmark.structures.image_list import to_image_list
 
 
-amp.init(enabled=True)
+amp.init(enabled=True, verbose=True)
 
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
