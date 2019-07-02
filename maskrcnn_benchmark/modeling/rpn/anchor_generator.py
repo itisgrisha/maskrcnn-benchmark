@@ -81,10 +81,10 @@ class AnchorGenerator(nn.Module):
             dtype = torch.float16 if cfg.DTYPE=='float16' else torch.float32
             print("DTYPE", dtype)
             shifts_x = torch.arange(
-                0, grid_width * stride, step=stride, dtype=torch.float32, device=device
+                0, grid_width * stride, step=stride, dtype=dtype, device=device
             )
             shifts_y = torch.arange(
-                0, grid_height * stride, step=stride, dtype=torch.float32, device=device
+                0, grid_height * stride, step=stride, dtype=dtype, device=device
             )
             shift_y, shift_x = torch.meshgrid(shifts_y, shifts_x)
             shift_x = shift_x.reshape(-1)
