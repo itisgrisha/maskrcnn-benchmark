@@ -37,6 +37,8 @@ class Detector():
 
     def infer(self, frames):
 
+        print(frames)
+
         transformed_frame = [self._transform(f) for f in frames]
         image_list = to_image_list(transformed_frame, self._cfg.DATALOADER.SIZE_DIVISIBILITY)
         image_list = image_list.to(self._device)
