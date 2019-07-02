@@ -11,6 +11,8 @@ from torchvision import transforms as T
 from maskrcnn_benchmark.modeling.detector import build_detection_model
 from maskrcnn_benchmark.utils.checkpoint import DetectronCheckpointer
 from maskrcnn_benchmark.utils.model_serialization import load_state_dict
+from maskrcnn_benchmark.structures.image_list import to_image_list
+
 
 class Detector():
     def __init__(self, cfg_path, weights_path, input_shape=(608, 608)):
@@ -26,7 +28,7 @@ class Detector():
         checkpoint = torch.load(weights_path, map_location=torch.device("cpu"))
         load_state_dict(self._model, checkpoint.pop("model"))
 
-        self.transform = self._build_transform()
+        self._transform = self._build_transform()
 
 
     def __call__(self, frame):
@@ -34,7 +36,7 @@ class Detector():
 
     def infer(self, frame):
 
-        transformed_frame = self._transforms(frame)
+        transformed_frame = self._transform(frame)
         image_list = to_image_list(transformed_frame, self._cfg.DATALOADER.SIZE_DIVISIBILITY)
         image_list = image_list.to(self._device)
 
