@@ -77,8 +77,10 @@ class RetinaNetPostProcessor(RPNPostProcessor):
             print(i[2]-i[0], i[3]-i[1])
             print(j[2]-j[0], j[3]-j[1])
             print(j[2]-j[1])
-            print(i[2]/i[0])
-        print('-'*20)
+            print((i[2]-i[0])/(i[3]-i[1]))
+            print((i[2]-i[0])*(i[3]-i[1]))
+            print('-----')
+        print('-'*50)
         # put in the same format as anchors
         box_cls = permute_and_flatten(box_cls, N, A, C, H, W)
         box_cls = box_cls.sigmoid()
