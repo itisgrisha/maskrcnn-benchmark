@@ -140,7 +140,7 @@ class RPNPostProcessor(torch.nn.Module):
             from time import time
             tik = time()
             print(o.shape)
-            print(a.bbox.shape)
+            print(a)
             sampled_boxes.append(self.forward_for_single_feature_map(a, o, b))
 
             tok = time()
