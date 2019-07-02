@@ -46,12 +46,12 @@ class AnchorGenerator(nn.Module):
         straddle_thresh=0,
     ):
         super(AnchorGenerator, self).__init__()
-        print('------------------')
-        print("ANCHOR_GENERATOR")
-        print('sizes', sizes)
-        print(aspect_ratios)
-        print(anchor_strides)
-        print('------------------')
+        #print('------------------')
+        #print("ANCHOR_GENERATOR")
+        #print('sizes', sizes)
+        #print(aspect_ratios)
+        #print(anchor_strides)
+        #print('------------------')
         if len(anchor_strides) == 1:
             anchor_stride = anchor_strides[0]
             cell_anchors = [
