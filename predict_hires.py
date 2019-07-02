@@ -109,7 +109,7 @@ model = Detector('configs/efnet_retina.yaml', '/data/mask_ckpts/rc_608/model_fin
 
 for c in crops:
     tik = time()
-    predictions = model(c)
+    predictions = model([c])
 
     tok = time()
 
