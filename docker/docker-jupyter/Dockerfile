@@ -68,6 +68,8 @@ RUN git clone https://github.com/itisgrisha/maskrcnn-benchmark.git \
  && cd maskrcnn-benchmark \
  && python setup.py build develop
 
+RUN pip uninstall -y pillow && CC="cc -mavx2" pip install -U --force-reinstall pillow-simd
+
 RUN jupyter notebook --generate-config
 
 ENV CONFIG_PATH="/root/.jupyter/jupyter_notebook_config.py"
